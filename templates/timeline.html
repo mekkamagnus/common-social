@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Common Social{% endblock %}
+
+{% block content %}
+<!-- Post composer -->
+<div class="bg-white border-b border-gray-200 p-4">
+    <form id="post-form" 
+          hx-post="/posts" 
+          hx-target="#timeline" 
+          hx-swap="innerHTML"
+          class="space-y-3">
+        
+        <!-- Textarea for post content -->
+        <div>
+            <textarea 
+                id="post-content"
+                name="content" 
+                placeholder="What's happening?"
+                class="w-full p-3 border border-gray-300 rounded-lg resize-none 
+                       focus:ring-2 focus:ring-blue-500 focus:border-blue-500
+                       text-base leading-relaxed touch-action-manipulation"
+                rows="3"
+                maxlength="280"
+                oninput="updateCharCounter(this)"
+                autofocus></textarea>
+        </div>
+        
+        <!-- Controls -->
+        <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <span class="text-sm">
+                    <span id="char-count" class="char-counter-ok">280</span>
+                    <span class="text-gray-400">characters remaining</span>
+                </span>
+            </div>
+            
+            <button 
+                id="submit-btn"
+                type="submit" 
+                disabled
+                class="bg-blue-500 text-white px-6 py-2 rounded-full font-medium
+                       min-h-[44px] min-w-[80px] touch-action-manipulation
+                       opacity-50 cursor-not-allowed
+                       focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                <span class="loading-spinner">⏳</span>
+                Post
+            </button>
+        </div>
+    </form>
+</div>
+
+<!-- Timeline -->
+<div id="timeline" class="divide-y divide-gray-200">
+    {% include "partials/timeline.html" %}
+</div>
+
+<!-- Empty state (shown when no posts) -->
+{% if not posts %}
+<div class="text-center py-12 px-4">
+    <div class="text-6xl mb-4">📝</div>
+    <h3 class="text-lg font-medium text-gray-900 mb-2">No posts yet</h3>
+    <p class="text-gray-500 mb-6">Share your first thought with the world!</p>
+</div>
+{% endif %}
+
+<!-- Stats footer -->
+<div class="bg-white border-t border-gray-200 p-4 text-center text-sm text-gray-500">
+    Total posts: {{ post_count|default:0 }}
+</div>
+{% endblock %}

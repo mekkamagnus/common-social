@@ -1,0 +1,41 @@
+<!-- Timeline posts -->
+{% for post in posts %}
+<article class="bg-white p-4 hover:bg-gray-50 transition-colors duration-150">
+    <div class="flex space-x-3">
+        <!-- Avatar placeholder -->
+        <div class="flex-shrink-0">
+            <div class="w-10 h-10 bg-gradient-to-br from-blue-400 to-blue-600 
+                        rounded-full flex items-center justify-center">
+                <span class="text-white font-medium">👤</span>
+            </div>
+        </div>
+        
+        <!-- Post content -->
+        <div class="flex-1 min-w-0">
+            <!-- Header -->
+            <div class="flex items-center space-x-2 mb-1">
+                <span class="font-medium text-gray-900">You</span>
+                <span class="text-gray-500">·</span>
+                <time class="text-gray-500 text-sm" 
+                      title="{{ post.created_at }}">
+                    {{ post.relative_time }}
+                </time>
+            </div>
+            
+            <!-- Post text -->
+            <div class="text-gray-900 leading-relaxed whitespace-pre-wrap break-words">{{ post.content }}</div>
+        </div>
+    </div>
+</article>
+{% endfor %}
+
+<!-- Load more posts (for future pagination) -->
+{% if posts and posts|length >= 20 %}
+<div class="bg-white p-4 text-center">
+    <button class="text-blue-500 hover:text-blue-600 font-medium py-2 px-4
+                   min-h-[44px] touch-action-manipulation
+                   focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+        Load more posts
+    </button>
+</div>
+{% endif %}
