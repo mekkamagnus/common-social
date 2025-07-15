@@ -52,15 +52,15 @@ A modern social media platform built with Common Lisp, SQLite, HTMX, and Tailwin
 
 2. **Clone and run**:
    ```bash
-   git clone https://github.com/your-username/common-social.git
+   git clone https://github.com/mekkamagnus/common-social.git
    cd common-social
    ros run.lisp
    ```
 
-3. **Alternative: Interactive development**:
+3. **Alternative: Load without shebang**:
    ```bash
-   ros -e "(ql:quickload :common-social)"
-   ros -e "(common-social:start-server)"
+   tail -n +2 run.lisp > temp-run.lisp
+   ros -e "(load \"temp-run.lisp\")"
    ```
 
 4. **Visit the application**:
@@ -82,63 +82,51 @@ ros run.lisp
 
 ### REPL Development
 ```lisp
-;; Load and start the system
-(ql:quickload :common-social)
-(common-social:start-server)
+;; Load the single-file server
+(load "run.lisp")
 
-;; Server management
+;; Or start just the server functions
+(common-social:start-server)
 (common-social:stop-server)
 (common-social:restart-server)
-
-;; Hot loading new features
-(load "hotload-commands.lisp")
 ```
 
-### SLY/SLIME Integration
+### Memory-Optimized Development
 
-For advanced interactive development:
+The new single-file approach provides:
 
 ```bash
-# Start with SLY support
-ros run --eval "(ql:quickload :common-social)" --eval "(common-social:start-server)"
+# Direct execution - no complex system loading
+ros run.lisp
 
-# Connect from Emacs: M-x sly-connect
-# Live code evaluation, debugging, and hot loading
+# Or load without shebang for development
+tail -n +2 run.lisp > temp-run.lisp && ros -e "(load \"temp-run.lisp\")"
 ```
 
 ### Development Workflow
 
-1. **File-based hot loading**: Edit `hotload-commands.lisp` for automatic updates
-2. **REPL development**: Interactive function modification and testing
-3. **Live debugging**: Fix issues while server runs and users browse
-4. **Type safety**: Comprehensive validation prevents runtime errors
+1. **Single file**: All functionality in `run.lisp` for easy editing
+2. **Memory efficient**: Only 3 dependencies, no complex loading
+3. **Fast restart**: Simple server restart for changes  
+4. **Direct debugging**: Immediate access to all functions in one file
 
 ## 📁 Project Structure
 
 ```
 common-social/
+├── 📄 run.lisp                 # Main server (single-file, memory-optimized)
 ├── 📄 common-social.asd        # ASDF system definition
-├── 📄 package.lisp             # Package definitions
-├── 📄 run.lisp                 # Startup script
-├── 📄 hotload-commands.lisp    # Hot loading commands
-├── 📁 src/                     # Source code
-│   ├── config.lisp            # Configuration
-│   ├── db.lisp                # Database layer
-│   ├── models.lisp            # Data models
-│   ├── handlers.lisp          # Web handlers
-│   ├── utils.lisp             # Utilities
-│   ├── main.lisp              # Main application
-│   └── hotload.lisp           # Hot loading system
 ├── 📁 specs/                   # Project documentation
 │   ├── PRD.md                 # Product requirements
 │   ├── TECH.md                # Technical specifications
 │   └── UI.md                  # UI/UX guidelines
 ├── 📁 ai-docs/                 # Development guides
-│   └── common-lisp.md         # Common Lisp development guide
+│   ├── common-lisp.md         # Common Lisp development guide
+│   └── memory-issue.md        # Memory optimization documentation
 ├── 📁 commands/                # Context and memory bank
-├── 📁 static/                  # Static assets (CSS, JS)
-├── 📁 templates/               # HTML templates (legacy)
-└── 📁 enhanced-app.lisp        # Phase 2 application (in development)
+├── 📁 src/                     # Legacy modular code (for reference)
+├── 📁 static/                  # Static assets (unused - CDN used)
+└── 📁 templates/               # HTML templates (unused - CL-WHO used)
 ```
 
 ## ⚡ Technology Stack

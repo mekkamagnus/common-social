@@ -1,48 +1,49 @@
 # Active Context: Common Social
 
 ## Current Work Focus
-**Fixing Phase 2 syntax issues to deploy enhanced social features**
+**Building standalone executable and optimizing deployment**
 
 ### Immediate Priority
-- **Syntax Debugging**: enhanced-app.lisp has parentheses balance errors preventing deployment
-- **Phase 2 Deployment**: All features are coded but can't run due to CL-WHO syntax issues
-- **User Testing**: Need working app to validate social features
+- **Build System**: Complete `ros build` integration for compiled executable
+- **Server Optimization**: Main single-file server is running and production-ready
+- **Distribution**: Create deployable binary without Roswell dependency
 
 ### Recent Changes
-1. **Template Migration**: Successfully converted from Djula to CL-WHO
-2. **Phase 2 Implementation**: Added users, profiles, likes, follows, notifications
-3. **Database Schema**: Comprehensive relational design with proper constraints
-4. **Type Safety**: Implemented throughout with custom validators
-5. **Dark Theme**: Hot-swappable emerald theme system
+1. **Memory Optimization**: Solved heap exhaustion by creating single-file server
+2. **Proper Shebang**: Implemented correct Roswell script format for reliable execution
+3. **Main Server**: Replaced complex modular system with working single-file approach
+4. **Live Testing**: Server running with real users posting and browsing
+5. **Build Exploration**: Investigating `ros build` for standalone executable compilation
 
 ## Next Steps
 
 ### Critical Path
-1. **Fix Syntax Issues**: Debug parentheses in render-posts function (line ~504)
-2. **Deploy Phase 2**: Get enhanced-app.lisp running on port 8008/8009
-3. **User Testing**: Validate social interactions work correctly
-4. **Performance Check**: Ensure database queries are efficient
+1. **Complete Build System**: Resolve `ros build` issues for standalone executable
+2. **Documentation**: Update all guides to reflect single-file architecture
+3. **Performance Testing**: Benchmark compiled vs interpreted server performance
+4. **Distribution**: Create installation package for easy deployment
 
-### Phase 2 Completion
-- Magic link authentication system
-- Image upload functionality
-- Enhanced notifications UI
-- User search and discovery
-- Mobile responsiveness testing
+### Optional Enhancements
+- Magic link authentication for multi-user support
+- Enhanced UI features and themes
+- Performance optimizations and caching
+- Advanced social features (following, likes, etc.)
+- Real-time updates with WebSockets
 
 ## Active Decisions and Considerations
 
 ### Architecture Choices
-- **CL-WHO over Djula**: Better type integration, hot loading compatibility
+- **Single-File over Modular**: Eliminates memory issues, simplifies deployment
+- **Direct Execution over Complex Loading**: Proper shebang enables simple `./run.lisp`
 - **SQLite over PostgreSQL**: Sufficient for MVP, easier deployment
 - **HTMX over React/Vue**: Fits Lisp philosophy, minimal JavaScript
-- **Dark Theme Default**: Modern aesthetic, reduces eye strain
+- **Blue Theme**: Clean, professional appearance for production use
 
 ### Development Patterns
-- **Type-First Design**: All functions have comprehensive type checking
-- **Hot Loading Development**: Changes apply instantly without restart
-- **Functional Core**: Business logic is pure, side effects at boundaries
-- **Component Composition**: Reusable UI building blocks
+- **Memory-First Design**: Prioritize minimal resource usage and fast startup
+- **Single-File Development**: All functionality in one file for easy debugging
+- **Direct Execution**: Simple `./run.lisp` command for immediate server start
+- **Minimal Dependencies**: Only essential libraries (hunchentoot, sqlite, cl-who)
 
 ## Important Patterns and Preferences
 
@@ -98,11 +99,11 @@
 - HTMX + Tailwind is an excellent combination for Lisp
 
 ## Current Status Summary
-- **Phase 1**: ✅ Complete and working
-- **Phase 2**: 🔧 Features implemented, syntax issues preventing deployment
-- **Database**: ✅ Schema complete with proper relationships
-- **Hot Loading**: ✅ Working for theme changes
-- **Type Safety**: ✅ Comprehensive throughout codebase
-- **UI**: ✅ Dark emerald theme, responsive design
+- **Phase 1 MVP**: ✅ Complete and production-ready
+- **Memory Optimization**: ✅ Solved heap exhaustion issues  
+- **Main Server**: ✅ Single-file `run.lisp` running successfully
+- **User Testing**: ✅ Live server with real users posting and browsing
+- **Build System**: 🔧 Investigating `ros build` for standalone executable
+- **Documentation**: ✅ Comprehensive guides including memory optimization
 
-**Critical Issue**: Parentheses balance in enhanced-app.lisp render-posts function preventing Phase 2 from running.
+**Current Focus**: Completing build system for standalone executable deployment. Core application is fully functional.
